@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.new(params.require(:user).permit(:name, :email))
+        user = User.new(users_params)
         if user.save
           render json: user
         else
@@ -31,6 +31,11 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
         @user.destroy
         redirect_to users_url
+    end
+
+    private
+    def users_params
+        params.require(:user).permit(:username)
     end
 
 end
